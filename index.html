@@ -12,151 +12,60 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--text); font-family: 'Noto Serif SC', serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        body { background: var(--bg); color: var(--text); font-family: 'Noto Serif SC', serif; overflow-x: hidden; }
 
         /* 导航 */
         nav { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(253, 251, 247, 0.98); display: flex; justify-content: center; align-items: center; z-index: 1000; border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
         nav a { margin: 0 15px; text-decoration: none; color: var(--text); font-size: 13px; letter-spacing: 1px; }
 
-        /* 首屏 */
-        .hero { height: 80vh; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('hero.jpg') center 20%/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 25px; }
-        .hero h1 { font-size: clamp(36px, 10vw, 64px); letter-spacing: 8px; margin-bottom: 15px; text-shadow: 0 2px 15px rgba(0,0,0,0.5); }
-        .hero p { font-size: 14px; letter-spacing: 3px; opacity: 0.9; }
+        /* --- 核心调整：首屏直接显示核心文案 --- */
+        .hero { 
+            height: 100vh; 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('hero.jpg') center 20%/cover no-repeat; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            color: white; text-align: center; padding: 0 30px;
+        }
+        .hero h1 { font-size: 42px; letter-spacing: 8px; margin-bottom: 20px; text-shadow: 0 2px 15px rgba(0,0,0,0.5); }
+        
+        /* 首屏浮层文案 */
+        .hero-text-box {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.3);
+            max-width: 500px;
+            border-radius: 4px;
+        }
+        .hero-text-box p { font-size: 15px; line-height: 1.8; margin-bottom: 10px; }
+        .hero-text-box b { color: #f0d5a3; }
 
-        /* 关于我们 - 文案深度优化 */
-        .about-wrap { padding: 60px 24px; max-width: 1000px; margin: 0 auto; }
-        .about-img { width: 100%; border: 1px solid var(--gold); padding: 8px; background: white; box-shadow: 10px 10px 0 rgba(197, 160, 89, 0.05); margin-bottom: 40px; }
-        .about-img img { width: 100%; height: auto; display: block; }
-        .about-content { line-height: 2; color: var(--text); text-align: justify; }
-        .about-content h2 { font-size: 26px; color: var(--clay); margin-bottom: 25px; text-align: center; letter-spacing: 4px; }
-        .about-content p { margin-bottom: 18px; font-size: 15px; }
-        .highlight { color: var(--clay); font-weight: 500; }
+        /* 关于我们的详细故事 */
+        .story-section { padding: 60px 25px; background: var(--bg); }
+        .story-content { max-width: 800px; margin: 0 auto; line-height: 2.2; font-size: 16px; text-align: justify; }
+        .story-content h2 { text-align: center; color: var(--clay); margin-bottom: 30px; letter-spacing: 4px; }
+        .highlight-text { border-left: 3px solid var(--gold); padding-left: 15px; margin: 25px 0; color: var(--clay); font-weight: 500; }
+
+        /* 关于我们图片（三只猫） */
+        .about-img { width: 100%; max-width: 600px; margin: 40px auto; border: 1px solid var(--gold); padding: 8px; background: white; }
+        .about-img img { width: 100%; display: block; }
 
         /* 岩彩 3D 轮播 */
         .gallery-box { padding: 60px 0; background: #F8F4EF; overflow: hidden; }
         .rock-slider { 
-            display: flex; gap: 12px; padding: 40px 0; 
+            display: flex; gap: 15px; padding: 40px 0; 
             overflow-x: auto; scroll-snap-type: x mandatory;
             align-items: center; scrollbar-width: none;
         }
         .rock-slider::-webkit-scrollbar { display: none; }
         .rock-item { 
-            min-width: 160px; height: 280px; flex-shrink: 0;
-            border: 5px solid white; outline: 1px solid var(--gold);
+            min-width: 180px; height: 300px; flex-shrink: 0;
+            border: 6px solid white; outline: 1px solid var(--gold);
             scroll-snap-align: center; transition: all 0.5s ease;
-            transform: scale(0.85); opacity: 0.6;
+            transform: scale(0.85); opacity: 0.5;
         }
         .rock-item img { width: 100%; height: 100%; object-fit: cover; }
-        .rock-item.active { transform: scale(1.15); opacity: 1; z-index: 10; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .rock-item.active { transform: scale(1.2); opacity: 1; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
 
-        /* 社交动态 */
-        .social-section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; }
-        .social-card { background: white; border: 1px solid #eee; padding: 25px; border-radius: 8px; margin-bottom: 20px; }
-        .platform { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 12px; margin-bottom: 15px; color: white; }
-        .stats { display: flex; gap: 20px; margin: 15px 0; border-top: 1px dashed #eee; padding-top: 15px; }
-        .stats b { color: var(--clay); font-size: 18px; }
-
-        footer { background: var(--dark); color: #B9AFA6; padding: 60px 20px; text-align: center; }
-        .footer-qr img { width: 120px; border: 4px solid white; margin: 20px 0; }
-
-        @media (min-width: 768px) {
-            .about-wrap { display: flex; align-items: flex-start; gap: 60px; padding: 100px 10%; }
-            .about-img { flex: 1; margin-bottom: 0; }
-            .about-content { flex: 1.5; }
-            .rock-item { min-width: 280px; height: 450px; }
-            .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        }
-    </style>
-</head>
-<body>
-
-<nav>
-    <a href="#about">我们的缘分</a> <a href="#gallery">猫咪大赏</a> <a href="#social">社交动态</a>
-</nav>
-
-<section class="hero">
-    <h1>思怡猫舍</h1>
-    <p>— 繁于指尖的温度 · 绘于心间的柔软 —</p>
-</section>
-
-<section id="about" class="about-wrap">
-    <div class="about-img"><img src="about.jpg" alt="三只猫合影"></div>
-    <div class="about-content">
-        <h2>关于我们的缘分</h2>
-        <p>猫舍开始于2020年，但是我们和猫猫的缘分早已开始。在做猫舍前，爸爸和妈妈在周围邻居里很出名，因为，<span class="highlight">我们收养流浪猫</span>。</p>
-        <p>每次周边认识的人捡到了流浪猫，就会给我爸妈，爸爸妈妈养在办公室。曾经也遇到过非常纨绔的流浪猫哈哈，喂了很久还是把我爸爸手咬穿。这些流浪猫，有爸爸妈妈的朋友想领养了，就会去到新家。</p>
-        <p>猫猫对我们而言，不仅是一个动物，更是一只可贵的生命，是我们的家人。怀着对生命的敬畏，开始了猫猫繁育。</p>
-        <p>人总会去寻找自己的价值。繁育到现在也5年多了快6年了。如果你问我，做这一行最开心的时候是什么时候？</p>
-        <p class="highlight">是无数的家长告诉我，接到了崽崽后，很幸福，很开心。是任何时候，都选择坚定的信任我，支持我。</p>
-        <p>这份事业让我明白，所谓幸福，就是看着每一个从这里出发的小生命，都找到了可以扎根的土壤；而信任，就是在漫长岁月里，我们用爱与责任写下的，柔软但坚韧的纽带。</p>
-    </div>
-</section>
-
-<section id="gallery" class="gallery-box">
-    <h2 style="text-align: center; color: var(--clay); letter-spacing: 5px;">猫咪大赏</h2>
-    <div class="rock-slider" id="slider">
-        <div class="rock-item"><img src="cat1.jpg"></div>
-        <div class="rock-item"><img src="cat2.jpg"></div>
-        <div class="rock-item active"><img src="cat3.jpg"></div>
-        <div class="rock-item"><img src="cat4.jpg"></div>
-        <div class="rock-item"><img src="cat5.jpg"></div>
-    </div>
-</section>
-
-<section id="social" class="social-section">
-    <div class="social-grid">
-        <div class="social-card">
-            <span class="platform" style="background: #ff2442;">小红书</span>
-            <h3>SiYi思怡金渐层猫舍</h3>
-            <div class="stats">
-                <div><b>1.4万</b><br>粉丝</div>
-                <div><b>12.9万</b><br>赞藏</div>
-            </div>
-            <p style="font-size: 13px; color: #666;">专注于高端稀有色，卡通幼态脸。私信暂不回复，望谅解。</p>
-        </div>
-        <div class="social-card">
-            <span class="platform" style="background: #000;">抖音</span>
-            <h3>思怡带咪中</h3>
-            <div class="stats">
-                <div><b>3550</b><br>粉丝</div>
-                <div><b>9.4万</b><br>获赞</div>
-            </div>
-            <p style="font-size: 13px; color: #666;">6年繁育经验，记录每一份生命成长的瞬间，欢迎吸猫。</p>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <div class="footer-qr">
-        <img src="qr.jpg" alt="微信">
-        <p>扫码咨询主理人</p>
-    </div>
-    <p style="font-size: 12px; opacity: 0.6;">© 2020-2026 思怡猫舍 | 版权所有</p>
-</footer>
-
-<script>
-    const slider = document.getElementById('slider');
-    const items = document.querySelectorAll('.rock-item');
-
-    const updateActive = () => {
-        const center = slider.scrollLeft + (slider.offsetWidth / 2);
-        items.forEach(item => {
-            const itemCenter = item.offsetLeft + (item.offsetWidth / 2);
-            if (Math.abs(center - itemCenter) < 80) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-            }
-        });
-    };
-
-    slider.addEventListener('scroll', updateActive);
-    items.forEach(item => {
-        item.addEventListener('click', () => {
-            item.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        });
-    });
-</script>
-
-</body>
-</html>
+        /* 社交动态卡片 */
+        .social-wrap { padding: 60px 20px; max-width: 1100px; margin: 0 auto; }
+        .social-card { background: white; border: 1px solid #eee; padding: 25px; border-radius: 12px; margin-bottom
