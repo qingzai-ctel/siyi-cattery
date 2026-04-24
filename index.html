@@ -8,24 +8,135 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500;700&display=swap');
         
         :root {
-            --bg: #FDFBF7; --text: #4A3728; --gold: #C5A059; --clay: #8E352E; --dark: #2D221B;
+            --bg: #FDFBF7;
+            --text: #4A3728;
+            --gold: #C5A059;
+            --clay: #8E352E;
+            --dark: #2D221B;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--text); font-family: 'Noto Serif SC', serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.8; }
+        body { background: var(--bg); color: var(--text); font-family: 'Noto Serif SC', serif; overflow-x: hidden; width: 100%; }
 
-        /* 导航 */
+        /* 导航 - 手机端自适应 */
         nav { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(253, 251, 247, 0.98); display: flex; justify-content: center; align-items: center; z-index: 1000; border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
-        nav a { margin: 0 15px; text-decoration: none; color: var(--text); font-size: 13px; letter-spacing: 1px; }
+        nav a { margin: 0 12px; text-decoration: none; color: var(--text); font-size: 13px; letter-spacing: 1px; }
 
-        /* 首屏 */
-        .hero { height: 85vh; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('hero.jpg') center 20%/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 25px; }
-        .hero h1 { font-size: clamp(36px, 10vw, 64px); letter-spacing: 8px; margin-bottom: 20px; text-shadow: 0 2px 15px rgba(0,0,0,0.5); }
-        .hero-bio { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 20px; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; max-width: 450px; font-size: 14px; }
+        /* 首屏 - 优化手机端脸部显示 */
+        .hero { height: 80vh; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('hero.jpg') center 20%/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 20px; }
+        .hero h1 { font-size: 40px; letter-spacing: 8px; margin-bottom: 10px; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
-        /* 关于我们 - 承载长文案 */
-        .section-title { text-align: center; font-size: 26px; letter-spacing: 4px; margin-bottom: 35px; color: var(--clay); }
-        .about-wrap { padding: 60px 20px; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
-        .about-img { width: 100%; max-width: 650px; border: 1px solid var(--gold); padding: 10px; background: white; box-shadow: 15px 15px 0 rgba(197, 160, 89, 0.1); margin-bottom: 40px; }
-        .about-img img { width: 100%; height: auto; display: block; }
-        .about-text-content { text-align: justify; font-size: 15px; color: var(--text); }
+        /* 关于我们 - 手机端上下排列 */
+        .about-section { padding: 60px 20px; display: flex; flex-direction: column; gap: 30px; align-items: center; }
+        .about-img-wrap { width: 100%; }
+        .about-img-wrap img { width: 100%; height: auto; border: 1px solid var(--gold); padding: 8px; background: white; box-shadow: 10px 10px 0 rgba(197, 160, 89, 0.1); }
+        .about-content { text-align: center; }
+
+        /* 岩彩风格轮播 - 手机端滑动优化 */
+        .gallery-container { padding: 60px 0; background: #F8F4EF; }
+        .gallery-title { text-align: center; margin-bottom: 30px; }
+        .rock-slider { display: flex; gap: 10px; padding: 0 15px; height: 350px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .rock-item { min-width: 120px; flex: 1; height: 100%; position: relative; overflow: hidden; border: 4px solid white; outline: 1px solid var(--gold); transition: all 0.5s ease; }
+        .rock-item img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+        .rock-item:active, .rock-item:hover { flex: 4; }
+
+        /* 种猫卡片 - 手机端变两列 */
+        .cat-grid { display: flex; flex-wrap: wrap; gap: 15px; padding: 0 15px; margin-top: 30px; }
+        .cat-card { width: calc(50% - 8px); background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .cat-card img { width: 100%; height: 250px; object-fit: cover; object-position: center 15%; }
+        .cat-card-info { padding: 15px; text-align: center; }
+        .cat-card-info h3 { font-size: 16px; }
+
+        /* 社交动态 - 手机端居中堆叠 */
+        .social-section { padding: 60px 20px; display: flex; flex-direction: column; gap: 40px; align-items: center; text-align: center; }
+        .social-visual-wrap { width: 100%; height: 300px; position: relative; display: flex; justify-content: center; }
+        .screenshot { position: absolute; width: 180px; border: 4px solid white; transition: all 0.5s ease; }
+        .dy-cap { transform: translateX(-20px) rotate(-5deg); z-index: 1; }
+        .xhs-cap { transform: translateX(20px) rotate(5deg); z-index: 2; }
+        .social-visual-wrap:hover .dy-cap { transform: translateX(-60px) rotate(0deg); }
+        .social-visual-wrap:hover .xhs-cap { transform: translateX(60px) rotate(0deg); }
+
+        /* 页脚 */
+        footer { background: var(--dark); color: #B9AFA6; padding: 40px 20px; display: flex; flex-direction: column; gap: 30px; text-align: center; }
+        .footer-qr img { width: 120px; border: 3px solid white; }
+
+        /* 针对电脑大屏幕的优化 (响应式补充) */
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 64px; }
+            .about-section { flex-direction: row; padding: 100px 10%; }
+            .rock-slider { height: 500px; padding: 0 50px; gap: 20px; }
+            .cat-grid { flex-wrap: nowrap; padding: 0 10%; gap: 40px; }
+            .cat-card { width: auto; }
+            .cat-card img { height: 500px; }
+            .social-section { flex-direction: row; padding: 100px 10%; text-align: left; }
+            .screenshot { width: 240px; }
+            footer { flex-direction: row; justify-content: space-between; padding: 80px 10%; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#about">关于</a>
+        <a href="#gallery">大赏</a>
+        <a href="#cats">种猫</a>
+        <a href="#social">动态</a>
+    </nav>
+
+    <section class="hero">
+        <h1>思怡猫舍</h1>
+        <p>— 繁于指尖的温度 · 绘于心间的柔软 —</p>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="about-img-wrap"><img src="about.jpg"></div>
+        <div class="about-content">
+            <h2 style="font-size: 28px; margin-bottom: 20px; color: var(--clay);">关于我们</h2>
+            <p>思怡猫舍始于2020年。猫对我们而言，不仅是动物，更是家里的艺术品与亲人。</p>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery-container">
+        <div class="gallery-title">
+            <h2 style="letter-spacing: 5px;">猫咪大赏</h2>
+        </div>
+        <div class="rock-slider">
+            <div class="rock-item"><img src="cat1.jpg"></div>
+            <div class="rock-item"><img src="cat2.jpg"></div>
+            <div class="rock-item"><img src="cat3.jpg"></div>
+            <div class="rock-item"><img src="cat4.jpg"></div>
+            <div class="rock-item"><img src="cat5.jpg"></div>
+        </div>
+    </section>
+
+    <section id="cats" style="padding: 60px 0;">
+        <h2 style="text-align: center; letter-spacing: 3px;">优质种猫</h2>
+        <div class="cat-grid">
+            <div class="cat-card">
+                <img src="17.jpg">
+                <div class="cat-card-info"><h3>17 (种公)</h3><p style="color: var(--gold); font-size: 13px;">蓝金渐层 · 顶级童颜</p></div>
+            </div>
+            <div class="cat-card">
+                <img src="dudu.jpg">
+                <div class="cat-card-info"><h3>嘟嘟 (种母)</h3><p style="color: var(--gold); font-size: 13px;">甜美长毛 · 温婉基因</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="social" class="social-section">
+        <div class="social-text">
+            <h2 style="font-size: 26px; margin-bottom: 15px;">社交动态</h2>
+            <p style="color: var(--clay); font-weight: bold;">1.4万 粉丝信任</p>
+            <p style="margin-bottom: 20px;">小红书：@SiYi思怡金渐层猫舍</p>
+        </div>
+        <div class="social-visual-wrap">
+            <img src="social_dy.jpg" class="screenshot dy-cap">
+            <img src="social_xhs.jpg" class="screenshot xhs-cap">
+        </div>
+    </section>
+
+    <footer>
+        <div><h3>思怡猫舍 SIYI</h3><p>© 2020-2026 版权所有</p></div>
+        <div class="footer-qr"><img src="qr.jpg"><p style="font-size: 12px; margin-top: 5px;">咨询主理人</p></div>
+    </footer>
+</body>
+</html>
