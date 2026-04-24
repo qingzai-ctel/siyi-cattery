@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思怡猫舍 | SIYI CATTERY</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500;700&display=swap');
+        
+        :root {
+            --bg: #FDFBF7;
+            --text: #4A3728;
+            --gold: #C5A059;
+            --clay: #8E352E;
+            --dark: #2D221B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Noto Serif SC', serif; overflow-x: hidden; }
+
+        /* 导航 - 保持不变 */
+        nav { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(253, 251, 247, 0.95); display: flex; justify-content: center; align-items: center; z-index: 1000; border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
+        nav a { margin: 0 25px; text-decoration: none; color: var(--text); font-size: 14px; letter-spacing: 2px; }
+
+        /* 首屏 (小黄鸭) - 保持不变 */
+        .hero { height: 100vh; background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('hero.jpg') center 20%/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; }
+        .hero h1 { font-size: 64px; letter-spacing: 15px; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+
+        /* 关于我们 (三只猫全显) */
+        .about-section { padding: 100px 10%; display: flex; gap: 60px; align-items: center; }
+        .about-img-wrap { flex: 1; }
+        .about-img-wrap img { 
+            width: 100%; 
+            height: auto; /* 确保三只猫不被裁剪，完整显示 */
+            border: 1px solid var(--gold); padding: 10px; background: white; 
+            box-shadow: 15px 15px 0 rgba(197, 160, 89, 0.1); 
+        }
+        .about-content { flex: 1.2; }
+
+        /* --- 岩彩风格轮播图 (核心改动) --- */
+        .gallery-container { padding: 100px 0; background: #F8F4EF; overflow: hidden; }
+        .gallery-title { text-align: center; margin-bottom: 50px; }
+        
+        .rock-slider {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 50px;
+            height: 500px; /* 固定高度 */
+        }
+        .rock-item {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid white;
+            outline: 1px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+        }
+        .rock-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%; /* 确保脸部在中间 */
+            transition: transform 0.6s ease;
+        }
+        /* 鼠标移上去：当前图片变宽并放大 */
+        .rock-item:hover {
+            flex: 3; /* 变宽 */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+        .rock-item:hover img {
+            transform: scale(1.1); /* 图片内部放大 */
+        }
+
+        /* 种猫卡片 - 保持不变 */
+        .cat-grid { display: flex; gap: 40px; padding: 0 10%; margin-top: 60px; }
+        .cat-card { flex: 1; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .cat-card img { width: 100%; height: 500px; object-fit: cover; object-position: center 15%; }
+        .cat-card-info { padding: 30px; text-align: center; }
+
+        /* 社交动态 (紧凑且咬合) - 保持不变 */
+        .social-section { padding: 100px 10%; display: flex; gap: 50px; align-items: center; background: white; }
+        .social-visual-wrap { flex: 1; position: relative; height: 400px; display: flex; justify-content: center; align-items: center; }
+        .screenshot { position: absolute; width: 240px; border: 6px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .dy-cap { transform: translateX(-30px) rotate(-6deg); z-index: 1; }
+        .xhs-cap { transform: translateX(30px) rotate(6deg); z-index: 2; }
+        .social-visual-wrap:hover .dy-cap { transform: translateX(-90px) rotate(-2deg) scale(1.05); z-index: 10; }
+        .social-visual-wrap:hover .xhs-cap { transform: translateX(90px) rotate(2deg) scale(1.05); z-index: 10; }
+
+        /* 页脚 - 保持不变 */
+        footer { background: var(--dark); color: #B9AFA6; padding: 80px 10% 40px; display: flex; justify-content: space-between; align-items: center; }
+        .footer-qr img { width: 130px; border: 4px solid white; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#about">关于</a>
+        <a href="#gallery">大赏</a>
+        <a href="#cats">种猫</a>
+        <a href="#social">动态</a>
+    </nav>
+
+    <section class="hero">
+        <h1>思怡猫舍</h1>
+        <p>— 繁于指尖的温度 · 绘于心间的柔软 —</p>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="about-img-wrap">
+            <img src="about.jpg" alt="三只猫合影">
+        </div>
+        <div class="about-content">
+            <h2 style="font-size: 32px; margin-bottom: 25px; color: var(--clay);">关于我们</h2>
+            <p>思怡猫舍始于2020年。猫对我们而言，不仅是动物，更是可贵的生命，是家人。</p>
+            <p style="margin-top: 15px;">我们专注于高品质渐层猫的科学繁育，确保三只猫崽崽都能健康快乐成长。每一份信任都承载着对生命的敬畏。</p>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery-container">
+        <div class="gallery-title">
+            <h2 style="letter-spacing: 8px;">猫咪大赏</h2>
+            <p style="color: var(--gold); margin-top: 10px;">点击或悬停看大图</p>
+        </div>
+        <div class="rock-slider">
+            <div class="rock-item"><img src="cat1.jpg"></div>
+            <div class="rock-item"><img src="cat2.jpg"></div>
+            <div class="rock-item"><img src="cat3.jpg"></div>
+            <div class="rock-item"><img src="cat4.jpg"></div>
+            <div class="rock-item"><img src="cat5.jpg"></div>
+        </div>
+    </section>
+
+    <section id="cats" style="padding: 100px 0;">
+        <h2 style="text-align: center; letter-spacing: 5px;">优质种猫</h2>
+        <div class="cat-grid">
+            <div class="cat-card">
+                <img src="17.jpg">
+                <div class="cat-card-info">
+                    <h3>17 (种公)</h3>
+                    <p style="color: var(--gold); font-size: 14px;">蓝金渐层 · 极致童颜</p>
+                </div>
+            </div>
+            <div class="cat-card">
+                <img src="dudu.jpg">
+                <div class="cat-card-info">
+                    <h3>嘟嘟 (种母)</h3>
+                    <p style="color: var(--gold); font-size: 14px;">甜美长毛 · 温婉基因</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="social" class="social-section">
+        <div class="social-text">
+            <h2 style="font-size: 30px; margin-bottom: 20px;">社交动态</h2>
+            <p style="font-size: 18px; color: var(--clay); font-weight: bold; margin-bottom: 10px;">1.4万 粉丝信任</p>
+            <p style="font-size: 18px; color: var(--clay); font-weight: bold; margin-bottom: 30px;">12.9万 赞与收藏</p>
+            <p>小红书：@SiYi思怡金渐层猫舍</p>
+            <p>抖音：@思怡带咪中</p>
+        </div>
+        <div class="social-visual-wrap">
+            <img src="social_dy.jpg" class="screenshot dy-cap">
+            <img src="social_xhs.jpg" class="screenshot xhs-cap">
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <h3 style="color: white; font-size: 28px; letter-spacing: 4px;">思怡猫舍 SIYI</h3>
+            <p>© 2020-2026 版权所有</p>
+        </div>
+        <div class="footer-qr">
+            <img src="qr.jpg">
+            <p style="font-size: 12px;">扫码咨询主理人</p>
+        </div>
+    </footer>
+
+</body>
+</html>
